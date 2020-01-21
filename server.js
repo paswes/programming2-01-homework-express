@@ -1,20 +1,23 @@
 const express = require('express');
 const path = require('path');
-const comments = require('./Comments');
+const bodyParser = require('body-parser');
+//const comments = require('./Comments');
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 
+/*
 // get all comments
 app.get('/comments', (req, res) => res.json(comments));
+*/
 
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.post('/', (req, res) => {
+    console.log(`Name: ${req.body.name} Message: ${req.body.message}`);
+    res.send('roger');
 });
-*/
 
 const PORT = process.env.PORT || 8000;
 

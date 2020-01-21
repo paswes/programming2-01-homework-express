@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/', (req, res) => {
     console.log(`Name: ${req.body.name} Message: ${req.body.message}`);
     comments.push({name: req.body.name, message: req.body.message});
-    console.log(comments);
+    //console.log(comments);
     res.send('roger');
 });
 

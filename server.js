@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const comments = require('./Comments');
+const comments = [];
 
 const app = express();
 
@@ -11,9 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/', (req, res) => {
-    console.log(`Name: ${req.body.name} Message: ${req.body.message}`);
+    //console.log(`Name: ${req.body.name} Message: ${req.body.message}`);
     comments.push({name: req.body.name, message: req.body.message});
-    //console.log(comments);
+    console.log(typeof(comments));
+    console.log(comments);
     res.send(comments);
 });
 

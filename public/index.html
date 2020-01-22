@@ -9,13 +9,12 @@
     </head>
     <body>
         <h1>Dynamic Web Application</h1>
-        <form id="msg-form">
-            <label for="input-name">Samal, wer bist du eigentlich?</label>
+        <form id="comment-form">
+            <label for="input-name">Name</label>
             <input id="input-name" type="text" name="name">
-            <label for="input-message">Zieh den Rucksack aus, wenn du mit mir redest.</label>
-            <textarea id="input-message" form="msg-form" name="message"></textarea><br>
-            <!-- <input type="submit" value="send request"> -->
-            <button id="submit" type="button">Trau dich</button>
+            <label for="input-message">Message</label>
+            <textarea id="input-message" form="comment-form" name="message"></textarea><br>
+            <button id="submit" type="button">Post Message</button>
         </form>
 
         <ul id="comment-list"></ul>

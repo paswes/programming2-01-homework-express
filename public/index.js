@@ -1,74 +1,53 @@
+const url = 'http://localhost:8000/';
+const method = 'POST';
+
 /**
- * Creating asynchronous HTTP request using POST
+ * Fetch user inputs with asynchronous HTTP request
  * and send data back to server.
- * @param callback
+ * @async
  */
-httpPost = () => {
+sendInputData = () => {
     document.querySelector('#submit').addEventListener('click', () => {
-        const http = new XMLHttpRequest();
-        const url = 'http://localhost:8000/';
-        const inputName = document.querySelector('#input-name').value;
-        const inputMessage = document.querySelector('#input-message').value;
-        const params = `name=${inputName}&message=${inputMessage}`;
+        let xhr = new XMLHttpRequest();
+        let inputName = document.getElementById('input-name').value;
+        let inputMessage = document.getElementById('input-message').value;
+        let params = `name=${inputName}&message=${inputMessage}`;
 
-        http.open('POST', url, true);
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', "application/x-www-form-urlencoded");
-        http.onreadystatechange = function () {  //Call a function when the state changes.
-            if (http.readyState === 4 && http.status === 200) {
-                console.log(JSON.parse(http.responseText));
-
-                let responseObject = JSON.parse(http.responseText);
-                console.log(responseObject[0].name);
-                console.log(responseObject[0].message);
-
-                const commentList = document.querySelector('#comment-list');
-
-                JSON.parse(http.responseText).forEach(function(response) {
-                    const node = document.createElement('li');
-                    const content = document.createTextNode(response.name + ' - ' + response.message); //umschreiben
-                    node.appendChild(content);
-                    commentList.appendChild(node);
-                });
-
-
+        xhr.open(method, url, true);
+        xhr.setRequestHeader('Content-type', "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                //console.log(JSON.parse(xhr.responseText));
+                renderList(xhr);
             }
         };
-        http.send(params);
+        xhr.send(params);
     });
 };
 
-/*
-document.querySelector('#submit').addEventListener('click', () => {
-    const http = new XMLHttpRequest();
-    const url = 'http://localhost:8000/';
-    const inputName = document.querySelector('#input-name').value;
-    const inputMessage = document.querySelector('#input-message').value;
-    const params = `name=${inputName}&message=${inputMessage}`;
-
-
-    http.open('POST', url, true);
-    //Send the proper header information along with the request
-    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    http.onreadystatechange = function () {  //Call a function when the state changes.
-        if (http.readyState === 4 && http.status === 200) {
-            console.log(http.responseText);
-        }
-    };
-    http.send(params);
-});
-*/
-
 /**
- * Create comment and append to list.
+ * Parse user inputs to JSON and return data in front-end.
+ * @param request
  */
-/*createComment = () => {
-    console.log("häää");
-    const commentList = document.querySelector('#comment-list');
-    const node = document.createElement('li');
-    const content = document.createTextNode(http.responseText.name + ' - ' + http.responseText.message); //umschreiben
-    node.appendChild(content);
-    commentList.appendChild(node);
-};*/
+renderList = (request) => {
+    let commentList = document.getElementById('comment-list');
 
-httpPost();
+    JSON.parse(request.responseText).forEach((response) => {
+        let list = document.createElement('li');
+        let nameWrapper = document.createElement('span');
+        let messageWrapper = document.createElement('span');
+        let name = document.createTextNode(response.name);
+        let message = document.createTextNode(response.message);
+
+        nameWrapper.className = 'name-wrapper';
+        messageWrapper.className = 'message-wrapper';
+
+        nameWrapper.appendChild(name);
+        messageWrapper.appendChild(message);
+        list.appendChild(nameWrapper);
+        list.appendChild(messageWrapper);
+        commentList.appendChild(list);
+    });
+};
+
+sendInputData();

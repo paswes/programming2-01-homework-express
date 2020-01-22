@@ -1,28 +1,33 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const comments = [];
 
+const comments = [];
+const PORT = process.env.PORT || 8000;
+/**
+ * Initialize express server.
+ * @type {app}
+ */
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// set static folder
+/**
+ * Set static folder.
+ */
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * Routes HTTP request and push every new instance of the object into array.
+ */
+app.use(bodyParser.urlencoded({extended: true}));
 app.post('/', (req, res) => {
-    //console.log(`Name: ${req.body.name} Message: ${req.body.message}`);
     comments.push({name: req.body.name, message: req.body.message});
-    console.log(typeof(comments));
     console.log(comments);
     res.send(comments);
 });
 
-/*
-// get all comments
-app.get('/comments', (req, res) => res.json(comments));
-*/
-
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => console.log(`Server started on port localhost ${PORT}`));
+/**
+ * Starts UNIX socket and listens for connections on given path.
+ */
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});

@@ -22,7 +22,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.post('/', (req, res) => {
     comments.push({name: req.body.name, message: req.body.message});
     console.log(comments);
-    res.send(comments);
+    const lastIndex = comments[comments.length-1];
+    lastComment = [lastIndex];
+    res.send(lastComment);
 });
 
 /**

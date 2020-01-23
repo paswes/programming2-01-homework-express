@@ -10,18 +10,30 @@
     <body>
         <h1>Dynamic Web Application</h1>
         <form id="comment-form">
-            <div class="form-name">
+            <div class="form-container">
                 <label for="input-name" class="input-label">Name</label>
-                <input id="input-name" type="text" name="name">
-            </div>
-            <div class="form-message">
+                <input id="input-name" type="text" name="name" class="form-e">
                 <label for="input-message" class="input-label">Message</label>
-                <textarea id="input-message" form="comment-form" name="message"></textarea><br>
+                <textarea id="input-message" form="comment-form" name="message" class="form-e"></textarea>
+                <button id="submit" type="button" class="submit-btn form-e">Post Message</button>
             </div>
-            <button id="submit" type="button" class="submit-btn">Post Message</button>
         </form>
 
-        <ul id="comment-list"></ul>
+        <div class="list-container">
+            <ul id="comment-list"></ul>
+        </div>
+
+        <hr>
+
+        <div class="notes">
+            <h4>Notes</h4>
+            <p>
+                // please don't judge the CSS
+            </p>
+            <p>
+                // some bug fixes and overall improvements required
+            </p>
+        </div>
 
         <script src="index.js"></script>
     </body>

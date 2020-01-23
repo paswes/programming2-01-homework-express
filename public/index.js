@@ -36,8 +36,8 @@ renderList = (request) => {
         let list = document.createElement('li');
         let nameWrapper = document.createElement('span');
         let messageWrapper = document.createElement('span');
-        let name = document.createTextNode(response.name);
-        let message = document.createTextNode(response.message);
+        let name = document.createTextNode(response.name + ': ');
+        let message = document.createTextNode(response.message)
 
         nameWrapper.className = 'name-wrapper';
         messageWrapper.className = 'message-wrapper';
